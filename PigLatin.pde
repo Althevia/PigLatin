@@ -1,3 +1,4 @@
+int count = 0;
 public void setup() 
 {
 	String[] lines = loadStrings("words.txt");
@@ -40,13 +41,13 @@ public boolean ifNoVowels(String sWord)
   return true;
 }
 
-public boolean moveConsonants(String sWord)
+public int moveConsonants(String sWord)
 {
   boolean stop = false;
-  int count = 0;
-  for (int i=1; i<sWord.length();i++)
+  count = 0;
+  for (int i=0; i<sWord.length();i++)
     {
-      if (stop = false)
+      if (stop == false)
       {
         if (sWord.substring(i,i+1).equals("a") || sWord.substring(i,i+1).equals("e") || sWord.substring(i,i+1).equals("i") || sWord.substring(i,i+1).equals("o") || sWord.substring(i,i+1).equals("u"))
           stop = true;
@@ -54,6 +55,7 @@ public boolean moveConsonants(String sWord)
           count = count + 1;
       }
     }
+  return count;
 }
 
 public String pigLatin(String sWord)
@@ -62,7 +64,7 @@ public String pigLatin(String sWord)
 {
   if (ifNoVowels(sWord) == true)
   {
-    return sWord;
+    return sWord+"ay";
   }
 	else if(findFirstVowel(sWord) == -1)
 	{
@@ -70,8 +72,10 @@ public String pigLatin(String sWord)
 	}
   else if (ifQu(sWord) == true)
     return sWord.substring(2,sWord.length())+"quay";
-  else if (moveConsonants(sWord)==true)
-    
+  else if (moveConsonants(sWord)>0)
+    {
+      return (sWord.substring(count,sWord.length()) + sWord.substring(0,count) + "ay");
+    }
 	else 
 	{
 		return "ERROR!";
